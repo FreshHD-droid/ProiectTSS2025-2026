@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <title>Prezentare TSS - Transport Feroviar de Marfă (T1)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    /* Slide content sizing */
+    .remark-slide-content {
+      font-size: 18px;
+      padding: 1em 2em 2.5em 2em;
+      background-color: #fafafa;
+      color: #222;
+    }
+
+    .remark-slide-content h1 {
+      font-size: 1.7em;
+      margin-top: 0;
+      margin-bottom: 0.4em;
+      color: #1a1a1a;
+      border-bottom: 3px solid #2e7dd7;
+      padding-bottom: 0.15em;
+    }
+
+    .remark-slide-content h2 {
+      font-size: 1.1em;
+      color: #2e7dd7;
+      margin-top: 0.7em;
+      margin-bottom: 0.2em;
+    }
+
+    .remark-slide-content h3 {
+      font-size: 1em;
+      color: #444;
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+
+    .remark-slide-content p,
+    .remark-slide-content li {
+      margin: 0.25em 0;
+      line-height: 1.4;
+    }
+
+    /* Title slide */
+    .remark-slide-content.center.middle h1,
+    .remark-slide-content.center.middle h2 {
+      border: none;
+      text-align: center;
+    }
+
+    .remark-slide-content.center.middle h1 {
+      font-size: 2.4em;
+      color: #1a1a1a;
+    }
+
+    .remark-slide-content.center.middle h2 {
+      font-size: 1.3em;
+      color: #2e7dd7;
+      font-weight: 600;
+    }
+
+    /* Code blocks */
+    .remark-code, .remark-inline-code {
+      font-family: 'Fira Code', 'Consolas', monospace;
+    }
+    .remark-code {
+      font-size: 0.7em;
+      line-height: 1.35;
+    }
+    .remark-inline-code {
+      background-color: #eaeaea;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 0.88em;
+      color: #c7254e;
+    }
+
+    /* Tables */
+    table {
+      border-collapse: collapse;
+      margin: 0.4em 0;
+      font-size: 0.82em;
+      width: 100%;
+    }
+    th, td {
+      padding: 5px 9px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #2e7dd7;
+      color: white;
+      font-weight: 600;
+    }
+    tr:nth-child(even) {
+      background-color: #f5f5f5;
+    }
+
+    /* Blockquotes */
+    blockquote {
+      border-left: 4px solid #2e7dd7;
+      padding-left: 0.8em;
+      color: #555;
+      font-style: italic;
+      margin: 0.4em 0;
+    }
+
+    /* Custom Remark.js layout classes */
+    .left-column {
+      width: 48%;
+      float: left;
+    }
+    .right-column {
+      width: 48%;
+      float: right;
+    }
+    .left-column-narrow {
+      width: 33%;
+      float: left;
+      font-size: 0.92em;
+    }
+    .right-column-wide {
+      width: 63%;
+      float: right;
+      font-size: 0.92em;
+    }
+
+    /* Clearfix after columns */
+    .remark-slide-content::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Center utility */
+    .center {
+      text-align: center;
+      margin: 0.8em 0;
+    }
+
+    /* Slide numbering */
+    .remark-slide-number {
+      font-size: 0.65em;
+      color: #aaa;
+      position: absolute;
+      bottom: 0.5em;
+      right: 1em;
+    }
+
+    /* Lists */
+    .remark-slide-content ul,
+    .remark-slide-content ol {
+      margin: 0.3em 0;
+      padding-left: 1.4em;
+    }
+
+    /* MathJax sizing */
+    mjx-container[jax="CHTML"][display="true"] {
+      margin: 0.4em 0 !important;
+      font-size: 1.05em !important;
+    }
+  </style>
+</head>
+<body>
+
+<textarea id="source">
+name: title
+class: center, middle
+count: false
+
+# Transport Feroviar de Marfă
+## Proiect TSS — T1 Testare unitară în Python
+
+**Echipa:** Marcu George Robert, Brișiț Mario Vlad
+
+Facultatea de Matematică și Informatică
+Anul III, sem. II — 2025-2026
+
+---
+
+# 1. Aplicația și subiectul testat (SUT)
+
+**Transport Feroviar de Marfă** — aplicație CLI Python pentru planificarea transportului feroviar (trenuri, rute, mărfuri, planuri).
+
+**SUT principal:** metoda `RiskEvaluator.evaluate_shipment_risk(cargo_list, train, route, delay_hours)` — returnează `"LOW"`, `"MEDIUM"` sau `"HIGH"`.
+
+## Îndeplinește toate cele 6 criterii pentru SUT
+
+| Criteriu | În cod |
+|---|---|
+| ≥ 3 parametri | 4 parametri |
+| ≥ 1 instrucțiune repetitivă | `for c in cargo_list:` |
+| `if` cu `else` și fără `else` | regula 2 (cu), regula 1 (fără) |
+| 1 condiție simplă + 1 compusă | `c.is_hazardous`; `haz > 0 and ratio > 0.7` |
+| Funcționalitate a unei clase | metodă a `RiskEvaluator` |
+
+---
+
+# 2. Strategiile aplicate — cele 3 etape
+
+Cerința T1 acoperă **8 strategii** din curs, distribuite pe 3 etape de predare. Le-am bifat pe toate:
+
+| Etapa | Strategie din cerința T1 | Status |
+|---|---|---|
+| **1/3** | Partiționare în clase de echivalență (EC) | ✅ |
+| **1/3** | Analiza valorilor de frontieră (BVA) | ✅ |
+| **2/3** | Acoperire la nivel de instrucțiune | ✅ 100% |
+| **2/3** | Acoperire la nivel de decizie / ramură | ✅ 100% |
+| **2/3** | Acoperire la nivel de condiție | ✅ 100% |
+| **2/3** | Circuite independente (McCabe) | ✅ V(G)=8 |
+| **3/3** | Analiză raport mutanți | ✅ |
+| **3/3** | ≥ 2 teste pentru ≥ 2 mutanți non-echivalenți | ✅ 3 teste / 3 mutanți omorâți |
+
+.center[**164 teste · 100% coverage · 100% mutation score · ~0.15s rulare suită**]
+
+---
+
+# 3. Etapa 1/3 — Black-box (EC + BVA)
+
+**Logica:** generăm teste pe baza specificației, **fără a privi codul intern**. Funcția e o cutie neagră.
+
+- **EC partitioning** — împărțim domeniul fiecărui parametru în clase logice; testăm un reprezentant per clasă (în loc să testăm valori infinite).
+- **BVA** — testăm exact pe frontierele dintre clase (cu `eps = 0.01`), unde apar cele mai multe defecte off-by-one.
+
+Rezultat agregat pe întreg proiectul: **125 teste BB · 24 clase de echivalență · 22 frontiere** distribuite pe 5 fișiere (cele 4 clase din `domain/` + SUT).
+
+## Exemplu — frontiera la pragul `ratio = 0.5`
+
+```python
+def test_bva_surcharge_ratio_exactly_0_5(...):
+    plan = _plan_with_weight(train_100t, route_450, 50.0)  # ratio = 0.5
+    assert plan.weight_surcharge() == approx(plan.base_cost() * 0.25)
+```
+
+Verifică operatorul `<=` (vs `<`). Dacă cineva scria `if ratio < 0.5:`, testul prindea imediat regresia.
+
+---
+
+# 4. Etapa 2/3 — White-box: CFG + McCabe
+
+**Logica:** generare teste pe baza structurii codului — Control Flow Graph (CFG) al SUT-ului.
+
+## CFG pentru `RiskEvaluator.evaluate_shipment_risk`
+
+- **n = 19 noduri**, **e = 25 muchii** (cu nodul virtual EXIT)
+- **7 puncte de decizie** (D1, D2, D_loop, D3, D4, D5, D6) — 2 sunt compuse
+- Construit după regulile clasice din curs (secvență → 1 nod; `if-else` → 2 ramuri; `for` → back-edge)
+
+## Complexitate ciclomatică McCabe
+
+$$V(G) = e - n + 2 = 25 - 19 + 2 = 8$$
+
+Verificare cu formula simplificată: **V(G) = nr. decizii + 1 = 7 + 1 = 8** ✓
+
+⇒ **8 căi linear independente** prin CFG → 8 teste dedicate (P1, P2, ..., P8).
+
+---
+
+# 5. Etapa 2/3 — Coverage: rezultat și observație
+
+**36 teste WB** organizate în 4 secțiuni:
+
+| Secțiune | Nr. teste |
+|---|---|
+| Statement coverage | 7 |
+| Branch coverage | 13 |
+| Condition coverage | 8 (toate combinațiile T/F) |
+| Independent paths (McCabe) | 8 |
+
+```
+service\risk_evaluator.py    22 stmts    14 branch    100% cover
+```
+
+**Observație onestă:** suita BB ajunge deja la 100% coverage. WB adaugă valoare prin **ilustrare explicită** și testarea **circuitelor independente**.
+
+---
+
+# 6. Etapa 3/3 — Mutation testing: rulare inițială
+
+**Logica:** modificăm intenționat codul cu mici greșeli (mutanți) și verificăm dacă suita le prinde. Mutmut generează mutanți automat aplicând operatori sintactici: `>` ↔ `>=`, `and` ↔ `or`, constante, string-uri etc.
+
+**Tool:** `mutmut 2.4.5` pe `service/risk_evaluator.py` — runner: suita BB + WB.
+
+Rezultat inițial: **35 mutanți generați · 32 omorâți (91.4%) · 3 supraviețuitori**.
+
+## Cei 3 supraviețuitori — toți clasificați non-echivalenți
+
+| # | Linie | Mutația aplicată | Clasificare |
+|---|---|---|---|
+| **#3** | 9 | mesaj `NegativeDelayError`: `"...XX...XX..."` | non-echiv la contract |
+| **#6** | 11 | mesaj `EmptyCargoListError`: `"XX...XX"` | non-echiv la contract |
+| **#18** | 25 | `hazardous_weight > 0` → `> 1` | non-echiv logic (frontieră) |
+
+**#3, #6** — mesajul de eroare e parte din contractul observabil (cf. strong mutation, IEEE 829). **#18** — clasic mutant relațional pe valoare de frontieră.
+
+---
+
+# 7. Etapa 3/3 — Cele 3 teste suplimentare → scor final
+
+```python
+def test_kill_mut_18_hazardous_weight_threshold_at_1t(...):
+    cargo = [Cargo("Normal", 75.0),
+             Cargo("Periculos", 1.0, is_hazardous=True)]
+    assert result == "HIGH"   # haz_weight = 1 EXACT
+
+def test_kill_mut_3_neg_delay_error_message_prefix(...):
+    assert msg.startswith("Intarzierea nu poate fi negativa")
+
+def test_kill_mut_6_empty_cargo_error_message_exact(...):
+    assert msg == "Lista de marfuri nu poate fi goala"
+```
+
+Rulare finală: **35 omorâți / 0 supraviețuitori**.
+
+$$\text{Mutation Score} = \frac{D}{D + L} = \frac{35}{35 + 0} = 100\%$$
+
+unde **D** = mutanți distinși (omorâți), **L** = supraviețuitori non-echivalenți.
+
+---
+
+# 8. Rezultate agregate
+
+.left-column-narrow[
+### Numere cheie
+
+- **164** teste totale (toate trec)
+- **125** BB + **36** WB + **3** mutation
+- **62** teste pe SUT principal
+- **24** clase de echivalență
+- **22** puncte de frontieră BVA
+- **V(G) = 8** complexitate McCabe
+- **35** mutanți generați
+- **~0.15 s** rulare suită completă
+]
+.right-column-wide[
+### Lecții învățate
+
+1. **100% coverage ≠ teste perfecte.** Suita BB+WB avea coverage 100% statement și branch, totuși 3 mutanți supraviețuiau — exact ce demonstrează exemplul `isPrime` din curs.
+
+2. **Mutation testing prinde defecte de frontieră absolute** pe care BVA tradițional le ratează (ex: `haz_weight = 1` nu era un prag din specificație, deci nu apărea în EC).
+
+3. **EC + BVA aplicate sistematic** dau coverage structural bun "din întâmplare" — efect secundar pozitiv al disciplinei BB.
+
+4. **Mesajele de excepție fac parte din contract** — operatorii string de mutație ne forțează să testăm explicit textul, nu doar tipul excepției.
+
+5. **Cele 3 strategii sunt complementare**, nu redundante: BB acoperă specificația, WB structura, mutation testing robustețea.
+]
+
+---
+
+name: questions
+class: center, middle
+count: false
+
+# Întrebări?
+
+**Repository:** [github.com/FreshHD-droid/ProiectTSS2025-2026](https://github.com/FreshHD-droid/ProiectTSS2025-2026)
+
+## Demo live
+
+```bash
+pytest tests/ -v              # 164 passed
+coverage report -m            # 22/22, 14/14, 100%
+mutmut run + sqlite cache     # 35/35 omorâți
+```
+
+Documentația completă: `documentatie_proiect.md` (~1050 linii)
+</textarea>
+
+<!-- MathJax setup BEFORE loading -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      processEscapes: true
+    },
+    options: {
+      skipHtmlTags: ['script', 'noscript', 'style', 'textarea']
+    },
+    startup: {
+      typeset: false
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- Remark.js -->
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+
+<script>
+  var slideshow = remark.create({
+    ratio: '16:9',
+    highlightStyle: 'monokai',
+    highlightLines: true,
+    highlightLanguage: 'python',
+    countIncrementalSlides: false,
+    slideNumberFormat: '%current% / %total%',
+    navigation: { scroll: false }
+  });
+
+  function typesetMath() {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      MathJax.typesetPromise().catch(function (err) {
+        console.warn('MathJax typeset error:', err);
+      });
+    }
+  }
+
+  var typesetInterval = setInterval(function () {
+    if (window.MathJax && window.MathJax.typesetPromise) {
+      typesetMath();
+      clearInterval(typesetInterval);
+    }
+  }, 200);
+
+  slideshow.on('showSlide', function () {
+    typesetMath();
+  });
+</script>
+
+</body>
+</html>

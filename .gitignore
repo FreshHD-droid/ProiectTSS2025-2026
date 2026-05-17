@@ -1,0 +1,31 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Pytest
+.pytest_cache/
+
+# Coverage tool artifacts
+.coverage
+.coverage.*
+htmlcov/
+
+# Mutmut artifacts
+.mutmut-cache
+mutants/
+
+# IDE configs (optional - exclude PyCharm's project files)
+.idea/
+
+# Claude Code local settings (personale, nu in repo)
+.claude/settings.local.json
+
+# OS junk
+.DS_Store
+Thumbs.db
